@@ -1,5 +1,4 @@
 {
-
   "name": "CrazyFactory/Data",
   "description": "",
   "type": "library",
@@ -15,13 +14,13 @@
 
   "autoload":{
     "psr-4" : {
-      "CrazyFactory\\Core\\": "src/"
+      "CrazyFactory\\Data\\": "src/"
     }
   },
 
   "autoload-dev":{
     "psr-4" : {
-      "CrazyFactory\\Core\\Test\\": "test/suites"
+      "CrazyFactory\\Data\\Test\\": "test/suites"
     }
   },
 

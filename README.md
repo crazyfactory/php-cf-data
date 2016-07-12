@@ -1,11 +1,16 @@
-php-cf-data
+# CrazyFactory\Data for PHP
 
 A library for structuring data in your project. Offers model creation,
 management and validation base classes. Though it's not meant to replace 
 a proper ORM it can be used as an ORM-like approach to several scenarios.
 
-Features
---------
+| master |
+| --- |
+| [![Build Status](https://travis-ci.org/crazyfactory/php-cf-data.svg?branch=master)](https://travis-ci.org/crazyfactory/php-cf-data) |
+
+
+
+## Features
 
 General
 * Relies on throwing exceptions. Most things don't fail gracefully by design.
@@ -38,21 +43,21 @@ CrazyFactory\Core\Serializers\DataToDataSerializer
   * using a map, single properties can be skipped or renamed
   * for complex scenarios pre and post process callbacks can be supplied.
 
-Usage
------
+## Usage
 
 - add a custom repository to your composer.json file
-  ```"repositories": [
+  ```
+  "repositories": [
    {
      "type": "vcs",
      "url": "https://github.com/crazyfactory/php-cf-data"
    }
-  ]```
+  ]
+  ```
 
 - run ```composer require crazyfactory/php-cf-data```
 
-Testing
--------
+## Testing
 
 - run ``composer update``
 - run ``composer test`` for PHPUnit tests.

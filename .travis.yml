@@ -5,28 +5,46 @@ sudo: false
 matrix:
   include:
   - php: 5.3
+  - php: 5.4
   - php: 5.5
-    env: PROCESS_CODECLIMATE=true
   - php: 5.6
   - php: 7.0
+    env: PROCESS_LINT=true
   - php: nightly
   - php: hhvm
-    env: IGNORE_XDEBUG=true
 
   fast_finish: true
 
   allow_failures:
   - php: nightly
+  - php: 7.0
+
+branches:
+  only:
+    - master
+    - stable
+    - release
+    - staging
+    - dev
+    - /^(.*\/)?ci-.*$/
 
 before_script:
-  - if [ -z "$IGNORE_XDEBUG" ];then phpenv config-rm xdebug.ini; fi
-  - composer config -g github-oauth.github.com $GITHUB_COMPOSER_AUTH
   - travis_retry composer self-update
   - travis_retry composer update --prefer-dist
-  - if [ -n "$PROCESS_CODECLIMATE" ];then echo 'zend_extension=xdebug.so' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini; fi
 
-script: ./test/bin/ci.bash summary
+script:
+  - composer update
+  - composer test
+  - if [ $PROCESS_LINT = true ]; then
+       composer lint
+    fi
 
 cache:
   directories:
     - $HOME/.composer/cache
+notifications:
+  slack:
+    rooms:
+      - crazyfactory:$SLACK_API_KEY#dev-noise
+      - crazyfactory:$SLACK_API_KEY#travis
+    on_start: always
