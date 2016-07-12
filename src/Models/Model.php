@@ -5,7 +5,7 @@
 
 namespace CrazyFactory\Core\Models;
 
-use CrazyFactory\Core\Models\Base\ModelBase;
+use CrazyFactory\Data\Models\Base\ModelBase;
 
 
 /**

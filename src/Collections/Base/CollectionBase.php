@@ -1,11 +1,11 @@
 <?php
 
-namespace CrazyFactory\Core\Collections\Base;
+namespace CrazyFactory\Data\Collections\Base;
 
-use CrazyFactory\Core\Exceptions\PropertyOutOfRangeException;
-use CrazyFactory\Core\Models\Base\IModel;
-use CrazyFactory\Core\Models\Base\ModelBase;
-use CrazyFactory\Core\Serializers\Base\ISerializer;
+use CrazyFactory\Core\Interfaces\IModel;
+use CrazyFactory\Core\Interfaces\ISerializer;
+
+use CrazyFactory\Core\Interfaces\ICollection;
 
 abstract class CollectionBase implements ICollection
 {
@@ -45,7 +45,7 @@ abstract class CollectionBase implements ICollection
      * @param IModel[] $list
      *
      * @param bool $dirtyState The preferred dirty state to filter for
-     * @return \CrazyFactory\Core\Models\Base\IModel[] dirty list
+     * @return IModel[] dirty list
      */
     protected static function filterModelsByDirtyState($list, $dirtyState = true)
     {
@@ -56,15 +56,12 @@ abstract class CollectionBase implements ICollection
 
     protected $_modelClass;
     protected $_modelPrimaryKey = null;
-
-    protected $_tableColumnMap = [];
-
     protected $_serializer;
 
     /**
      * CollectionBase constructor.
      *
-     * @param $modelClass
+     * @param string|IModel $modelClass
      * @param ISerializer $serializer Handles conversion between model and data properties
      * @throws \Exception
      */
@@ -95,8 +92,9 @@ abstract class CollectionBase implements ICollection
         }
     }
 
-    // Map Models into [id: string|int] => <data>
 	/**
+     * Serializes models and maps them into a list (or in a pk=>data dictionary)
+     *
      * @param IModel[] $list
      * @param bool $dirtyOnly
      * @param bool $asDictionary
@@ -104,7 +102,7 @@ abstract class CollectionBase implements ICollection
      * @param bool $skipValidation
      *
      * @return array|null
-     * @throws PropertyOutOfRangeException
+     * @throws \OutOfRangeException
      */
     protected function serializeModels($list, $dirtyOnly = false, $asDictionary = false, $removePrimaryKey = false, $skipValidation = false) {
 
@@ -142,7 +140,7 @@ abstract class CollectionBase implements ICollection
             if ($asDictionary) {
                 $item_key = $item->getPropertyValue($this->_modelPrimaryKey);
                 if (!$item_key) {
-                    throw new PropertyOutOfRangeException('Missing primary key to create dictionary entry');
+                    throw new \OutOfRangeException('Missing primary key to create dictionary entry');
                 }
                 $result[$item_key] = $item_data;
             }
@@ -155,36 +153,77 @@ abstract class CollectionBase implements ICollection
         return $result;
     }
 
+    /**
+     * Restores serialized models and maps them to a list (or as a pk=>data dictionary)
+     *
+     * @param IModel[] $list
+     * @param bool $asDictionary
+     * @param bool $skipValidation
+     *
+     * @return array|null
+     * @throws \OutOfRangeException
+     */
+    protected function restoreModels($list, $asDictionary = false, $skipValidation = false) {
+
+        // Validate
+        if ($list === null) {
+            return null;
+        }
+        if (empty($list)) {
+            return [];
+        }
+
+        // Restore data if required
+        if ($this->_serializer) {
+            $list = $this->_serializer->restoreEach($list);
+        }
+
+        // Convert
+        $result = [];
+        foreach ($list as $data) {
+
+            /**
+             * @var IModel $model
+             */
+            $model = new $this->_modelClass();
+            if ($skipValidation) {
+                $model->isValidatedOnChange(false);
+            }
+
+            // Add data to model
+            $model->applyData($data);
+
+            // Clean model and activate validation
+            $model->resetDirtyState();
+            $model->resetInvalidationState();
+            $model->isValidatedOnChange(true);
+
+            // Group result as key=>value dictionary...
+            if ($asDictionary) {
+                $result[$data[$this->_modelPrimaryKey]] = $model;
+            }
+            else {
+                $result[] = $model;
+            }
+        }
+
+        return $result;
+    }
 
     /**
      * @param  IModel[] $list
      *
      * @return IModel[]
-     * @throws \Exception
+     * @throws \InvalidArgumentException
      */
     protected function validateModelTypes($list)
     {
         foreach ($list as $item) {
             if (!($item instanceof $this->_modelClass)) {
-                throw new \Exception('Invalid Model in list');
+                throw new \InvalidArgumentException('Invalid Model in list');
             }
         }
 
         return $list;
-    }
-
-    /**
-     * @param IModel[] $list
-     *
-     * @return int[]
-     */
-    private function getAllPrimaryKeys($list)
-    {
-        return array_map(function ($item) {
-            /**
-             * @var ModelBase $item
-             */
-            return $item->getPropertyValue($this->_modelPrimaryKey);
-        }, $list);
     }
 }

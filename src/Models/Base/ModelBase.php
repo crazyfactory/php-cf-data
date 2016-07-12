@@ -1,12 +1,10 @@
 <?php
-/**
- * @license see LICENSE
- */
 
-namespace CrazyFactory\Core\Models\Base;
+namespace CrazyFactory\Data\Models\Base;
 
+use OutOfRangeException;
 use CrazyFactory\Core\Exceptions\PropertyNotFoundException;
-use CrazyFactory\Core\Exceptions\PropertyOutOfRangeException;
+use CrazyFactory\Core\Interfaces\IModel;
 
 abstract class ModelBase implements IModel
 {
@@ -35,13 +33,12 @@ abstract class ModelBase implements IModel
             throw new PropertyNotFoundException("Unknown property '" . $name . "'");
         }
 
-
         // Value changed?
         if ($this->_properties[$name] !== $value) {
 
             // Opt out on invalid value
             if ($this->_isValidatedOnChange && !$this->isValidPropertyValue($name, $value, false)) {
-                throw new PropertyOutOfRangeException(null, "'" . $name . "' can't accept value '" . $value . "'!");
+                throw new OutOfRangeException("'" . $name . "' can't accept value '" . $value . "'!");
             }
 
             // If not yet done store previous value
@@ -146,7 +143,7 @@ abstract class ModelBase implements IModel
                 }
             }
             if (!empty($invalidValues)) {
-                throw new PropertyOutOfRangeException($invalidValues);
+                throw new OutOfRangeException($invalidValues);
             }
         }
 
@@ -168,7 +165,7 @@ abstract class ModelBase implements IModel
 
     /**
      * @return void
-     * @throws PropertyOutOfRangeException
+     * @throws \OutOfRangeException;
      */
     public function validate()
     {
@@ -181,13 +178,13 @@ abstract class ModelBase implements IModel
         $invalidProperties = [];
         foreach ($this->_properties as $key => $value) {
             if (!$this->isValidPropertyValue($key, $value)) {
-                $invalidProperties[$key] = $value;
+                $invalidProperties[] = $key;
             }
         }
 
         // Throw exception on error
         if (!empty($invalidProperties)) {
-            throw new PropertyOutOfRangeException($invalidProperties);
+            throw new OutOfRangeException('Invalid values for properties: ' . implode(", ", $invalidProperties));
         }
 
         // Update state
@@ -202,7 +199,7 @@ abstract class ModelBase implements IModel
         try {
             $this->validate();
         }
-        catch (PropertyOutOfRangeException $e) {
+        catch (OutOfRangeException $e) {
             return false;
         }
 

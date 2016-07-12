@@ -8,8 +8,7 @@
 
 namespace CrazyFactory\Core\Serializers;
 
-
-use CrazyFactory\Core\Serializers\Base\SerializerBase;
+use CrazyFactory\Data\Serializers\Base\SerializerBase;
 
 class DataToDataSerializer extends SerializerBase
 {

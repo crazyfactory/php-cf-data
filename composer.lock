@@ -4,9 +4,128 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "3b737879f971909919dd057d517a4d95",
-    "content-hash": "91f1fa3801dcc30d7585ae779650de86",
-    "packages": [],
+    "hash": "de6f564bb942ecc31e38eec7dc5ce37d",
+    "content-hash": "e36e4ef3e64d1d37bf8ce3446929484f",
+    "packages": [
+        {
+            "name": "crazyfactory/php-cf-core",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/crazyfactory/php-cf-core.git",
+                "reference": "75ca720c7b79fc121bf73988cee8a91f66f5e86d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/crazyfactory/php-cf-core/zipball/75ca720c7b79fc121bf73988cee8a91f66f5e86d",
+                "reference": "75ca720c7b79fc121bf73988cee8a91f66f5e86d",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "4.1.2",
+                "squizlabs/php_codesniffer": "~2.5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "CrazyFactory\\Core\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "CrazyFactory\\Core\\Test\\": "test/suites"
+                }
+            },
+            "scripts": {
+                "test": [
+                    "phpunit -c phpunit.dist.xml"
+                ],
+                "lint": [
+                    "test/bin/phpcs.bash emacs"
+                ],
+                "csfix": [
+                    "test/bin/phpcbf.bash"
+                ]
+            },
+            "license": [
+                "GPL-3.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Wolf T. Mathes",
+                    "homepage": "https://github.com/wmathes"
+                }
+            ],
+            "homepage": "https://github.com/crazyfactory/php-cf-core",
+            "support": {
+                "source": "https://github.com/crazyfactory/php-cf-core/tree/master",
+                "issues": "https://github.com/crazyfactory/php-cf-core/issues"
+            },
+            "time": "2016-07-12 09:15:18"
+        },
+        {
+            "name": "crazyfactory/php-cf-utils",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/crazyfactory/php-cf-utils.git",
+                "reference": "e3fe727789d5fe0e3f8a46c95abd28b47d22e3da"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/crazyfactory/php-cf-utils/zipball/e3fe727789d5fe0e3f8a46c95abd28b47d22e3da",
+                "reference": "e3fe727789d5fe0e3f8a46c95abd28b47d22e3da",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "4.1.2",
+                "squizlabs/php_codesniffer": "~2.5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "CrazyFactory\\Utils\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "CrazyFactory\\Utils\\Test\\": "test/suites"
+                }
+            },
+            "scripts": {
+                "test": [
+                    "phpunit -c phpunit.dist.xml"
+                ],
+                "lint": [
+                    "test/bin/phpcs.bash emacs"
+                ],
+                "csfix": [
+                    "test/bin/phpcbf.bash"
+                ]
+            },
+            "license": [
+                "GPL-3.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Wolf T. Mathes",
+                    "homepage": "https://github.com/wmathes"
+                }
+            ],
+            "homepage": "https://github.com/crazyfactory/php-cf-utils",
+            "support": {
+                "source": "https://github.com/crazyfactory/php-cf-utils/tree/master",
+                "issues": "https://github.com/crazyfactory/php-cf-utils/issues"
+            },
+            "time": "2016-07-12 08:39:28"
+        }
+    ],
     "packages-dev": [
         {
             "name": "doctrine/instantiator",
@@ -884,11 +1003,14 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "crazyfactory/php-cf-core": 20,
+        "crazyfactory/php-cf-utils": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=5.4.0"
+        "php": ">=5.3.0"
     },
     "platform-dev": []
 }

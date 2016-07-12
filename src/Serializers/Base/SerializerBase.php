@@ -1,16 +1,16 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: fanat
- * Date: 08.07.2016
- * Time: 17:21
- */
 
-namespace CrazyFactory\Core\Serializers\Base;
+namespace CrazyFactory\Data\Serializers\Base;
 
+use CrazyFactory\Core\Interfaces\ISerializer;
 
 abstract class SerializerBase implements ISerializer
 {
+	/**
+     * @param mixed[] $list
+     *
+     * @return mixed[]
+     */
     function serializeEach($list)
     {
         // Fail if not a list
@@ -26,6 +26,12 @@ abstract class SerializerBase implements ISerializer
         return $out;
     }
 
+
+	/**
+     * @param mixed[] $list
+     *
+     * @return mixed[]
+     */
     function restoreEach($list)
     {
         // Fail if not a list
