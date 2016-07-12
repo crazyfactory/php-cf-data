@@ -1,5 +1,5 @@
 {
-  "name": "CrazyFactory/Data",
+  "name": "crazyfactory/php-cf-data",
   "description": "",
   "type": "library",
   "keywords": [],
@@ -24,8 +24,21 @@
     }
   },
 
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/crazyfactory/php-cf-utils"
+    },
+    {
+      "type": "vcs",
+      "url": "https://github.com/crazyfactory/php-cf-core"
+    }
+  ],
+
   "require": {
-    "php": ">=5.3.0"
+    "php": ">=5.3.0",
+    "crazyfactory/php-cf-core": "dev-master",
+    "crazyfactory/php-cf-utils": "dev-master"
   },
 
   "require-dev":{
