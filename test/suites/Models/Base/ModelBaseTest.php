@@ -3,9 +3,9 @@
  * @license see LICENSE
  */
 
-namespace CrazyFactory\Core\Test;
+namespace CrazyFactory\Data\Test;
 
-use CrazyFactory\Core\Models\Base\ModelBase;
+use CrazyFactory\Data\Models\Base\ModelBase;
 
 // inherits from abstract class
 class SimpleModel extends ModelBase
@@ -35,7 +35,6 @@ class ValidatingModel extends ModelBase
         return is_bool($value);
     }
 }
-
 
 class ModelBaseTest extends \PHPUnit_Framework_TestCase
 {
@@ -71,7 +70,7 @@ class ModelBaseTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \CrazyFactory\Core\Exceptions\PropertyOutOfRangeException
+     * @expectedException \OutOfRangeException
      */
     public function testSetPropertyValue_PropertyOutOfRanceException()
     {
@@ -255,7 +254,7 @@ class ModelBaseTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \CrazyFactory\Core\Exceptions\PropertyOutOfRangeException
+     * @expectedException \OutOfRangeException
      */
     public function testValidate_ThrowsException() {
         $obj = new ValidatingModel();

@@ -7,10 +7,10 @@
  */
 
 
-namespace CrazyFactory\Core\Test;
+namespace CrazyFactory\Data\Test;
 
-use CrazyFactory\Core\Serializers\Base\ISerializer;
-use CrazyFactory\Core\Serializers\Base\SerializerBase;
+use CrazyFactory\Core\Interfaces\ISerializer;
+use CrazyFactory\Data\Serializers\Base\SerializerBase;
 
 
 /*
