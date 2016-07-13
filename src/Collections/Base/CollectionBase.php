@@ -6,40 +6,10 @@ use CrazyFactory\Core\Interfaces\IModel;
 use CrazyFactory\Core\Interfaces\ISerializer;
 
 use CrazyFactory\Core\Interfaces\ICollection;
+use CrazyFactory\Utils\Arrays;
 
 abstract class CollectionBase implements ICollection
 {
-    /**
-     * @param IModel[]|IModel $listOrModel
-     *
-     * @return IModel[]
-     */
-    protected static function wrapInArray($listOrModel) // todo: remove?
-    {
-        return is_array($listOrModel)
-            ? $listOrModel
-            : [$listOrModel];
-    }
-
-    /**
-     * @param array[] $list
-     *
-     * @return string[]
-     */
-    protected static function getUniqueKeysFromElements($list) // todo: move to php-cf-utils
-    {
-        $keys = [];
-        foreach ($list as $item) {
-            $keys += array_keys($item);
-        }
-
-        $keys = array_unique($keys);
-
-        sort($keys, SORT_STRING);
-
-        return $keys;
-    }
-
 
     /**
      * @param IModel[] $list
@@ -107,8 +77,8 @@ abstract class CollectionBase implements ICollection
     protected function serializeModels($list, $dirtyOnly = false, $asDictionary = false, $removePrimaryKey = false, $skipValidation = false) {
 
         // Validate if requested
-        if (!$skipValidation) {
-            $this->validateModelTypes($list);
+        if (!$skipValidation && !Arrays::hasOnlyElementsOfClass($list, IModel::class, false)) {
+            throw new \InvalidArgumentException('list contains invalid elements');
         }
 
         // Filter out non-dirty if requested
@@ -122,7 +92,7 @@ abstract class CollectionBase implements ICollection
         }
 
         // Convert
-        $result = [];
+        $result = array();
         foreach ($list as $item) {
             $item_data = $item->extractData($dirtyOnly);
 
@@ -170,7 +140,7 @@ abstract class CollectionBase implements ICollection
             return null;
         }
         if (empty($list)) {
-            return [];
+            return array();
         }
 
         // Restore data if required
@@ -179,7 +149,7 @@ abstract class CollectionBase implements ICollection
         }
 
         // Convert
-        $result = [];
+        $result = array();
         foreach ($list as $data) {
 
             /**
@@ -208,22 +178,5 @@ abstract class CollectionBase implements ICollection
         }
 
         return $result;
-    }
-
-    /**
-     * @param  IModel[] $list
-     *
-     * @return IModel[]
-     * @throws \InvalidArgumentException
-     */
-    protected function validateModelTypes($list)
-    {
-        foreach ($list as $item) {
-            if (!($item instanceof $this->_modelClass)) {
-                throw new \InvalidArgumentException('Invalid Model in list');
-            }
-        }
-
-        return $list;
     }
 }

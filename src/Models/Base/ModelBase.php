@@ -8,8 +8,8 @@ use CrazyFactory\Core\Interfaces\IModel;
 
 abstract class ModelBase implements IModel
 {
-    protected $_properties = [];
-    protected $_dirtyProperties = [];
+    protected $_properties = array();
+    protected $_dirtyProperties = array();
     protected $_isValidatedOnChange = true;
     protected $_isValidated = true;
 
@@ -76,7 +76,7 @@ abstract class ModelBase implements IModel
         // Check for existing validator
         if (method_exists($this, $fnName)) {
             // Validate value or throw up
-            if (!call_user_func([$this, $fnName], $value)) {
+            if (!call_user_func(array($this, $fnName), $value)) {
                 return false;
             }
         }
@@ -105,11 +105,11 @@ abstract class ModelBase implements IModel
             return $this->_properties;
         }
         else if (!$this->isDirty()) {
-            return [];
+            return array();
         }
         else {
 
-            $dirtyArray = [];
+            $dirtyArray = array();
 
             foreach ($this->_dirtyProperties as $dirtyName => $dirtyValue) { // value is always true...
                 $dirtyArray[$dirtyName] = $this->_properties[$dirtyName];
@@ -122,7 +122,7 @@ abstract class ModelBase implements IModel
 
     public function applyData($data)
     {
-        $invalidProperties = [];
+        $invalidProperties = array();
 
         // todo: use array_diff_keys?
         foreach ($data as $key => $value) {
@@ -136,7 +136,7 @@ abstract class ModelBase implements IModel
         }
 
         if ($this->_isValidatedOnChange) {
-            $invalidValues = [];
+            $invalidValues = array();
             foreach ($data as $key => $value) {
                 if (!$this->isValidPropertyValue($key, $value, false)) {
                     $invalidValues[$key] = $value;
@@ -175,7 +175,7 @@ abstract class ModelBase implements IModel
         }
 
         // Validate all properties
-        $invalidProperties = [];
+        $invalidProperties = array();
         foreach ($this->_properties as $key => $value) {
             if (!$this->isValidPropertyValue($key, $value)) {
                 $invalidProperties[] = $key;

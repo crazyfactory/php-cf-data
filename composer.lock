@@ -13,12 +13,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/crazyfactory/php-cf-core.git",
-                "reference": "75ca720c7b79fc121bf73988cee8a91f66f5e86d"
+                "reference": "75e49403fd069f93152b4398249bc5be524bbf55"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/crazyfactory/php-cf-core/zipball/75ca720c7b79fc121bf73988cee8a91f66f5e86d",
-                "reference": "75ca720c7b79fc121bf73988cee8a91f66f5e86d",
+                "url": "https://api.github.com/repos/crazyfactory/php-cf-core/zipball/75e49403fd069f93152b4398249bc5be524bbf55",
+                "reference": "75e49403fd069f93152b4398249bc5be524bbf55",
                 "shasum": ""
             },
             "require": {
@@ -64,7 +64,7 @@
                 "source": "https://github.com/crazyfactory/php-cf-core/tree/master",
                 "issues": "https://github.com/crazyfactory/php-cf-core/issues"
             },
-            "time": "2016-07-12 09:15:18"
+            "time": "2016-07-12 10:24:40"
         },
         {
             "name": "crazyfactory/php-cf-utils",
@@ -72,12 +72,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/crazyfactory/php-cf-utils.git",
-                "reference": "e3fe727789d5fe0e3f8a46c95abd28b47d22e3da"
+                "reference": "f585b57a5dbd173d3a3a9d25ccf52405251b509f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/crazyfactory/php-cf-utils/zipball/e3fe727789d5fe0e3f8a46c95abd28b47d22e3da",
-                "reference": "e3fe727789d5fe0e3f8a46c95abd28b47d22e3da",
+                "url": "https://api.github.com/repos/crazyfactory/php-cf-utils/zipball/f585b57a5dbd173d3a3a9d25ccf52405251b509f",
+                "reference": "f585b57a5dbd173d3a3a9d25ccf52405251b509f",
                 "shasum": ""
             },
             "require": {
@@ -120,10 +120,10 @@
             ],
             "homepage": "https://github.com/crazyfactory/php-cf-utils",
             "support": {
-                "source": "https://github.com/crazyfactory/php-cf-utils/tree/master",
+                "source": "https://github.com/crazyfactory/php-cf-utils/tree/1.0.2",
                 "issues": "https://github.com/crazyfactory/php-cf-utils/issues"
             },
-            "time": "2016-07-12 08:39:28"
+            "time": "2016-07-13 01:25:46"
         }
     ],
     "packages-dev": [

@@ -45,7 +45,7 @@ class SqlCollection extends CollectionBase
         if ($tableName === null) {
             // In SqlCollection we use the Model Class name
             // In an inherited collection we use the collections name
-            $tableName = get_called_class() == SqlCollection::class
+            $tableName = (get_called_class() instanceof SqlCollection)
                 ? SqlSchemes::determineTableName((string) $modelClass)
                 : SqlSchemes::determineTableName(get_called_class());
         }
@@ -77,7 +77,7 @@ class SqlCollection extends CollectionBase
     public function add($listOrModel)
     {
         // Ensure it's an array
-        $list = is_array($listOrModel) ? $listOrModel : [$listOrModel];
+        $list = is_array($listOrModel) ? $listOrModel : array($listOrModel);
 
         // Convert models to serialized list
         $data_list = $this->serializeModels($list);
@@ -110,7 +110,7 @@ class SqlCollection extends CollectionBase
     public function update($listOrModel)
     {
         // Ensure it's an array
-        $list = is_array($listOrModel) ? $listOrModel : [$listOrModel];
+        $list = is_array($listOrModel) ? $listOrModel : array($listOrModel);
 
         // Convert models to dictionary of dirty data (with PK=>DirtyData)
         $dirty_data_dic = $this->serializeModels($list, true, true);
@@ -145,10 +145,10 @@ class SqlCollection extends CollectionBase
     public function remove($listOrValue)
     {
         // Wrap
-        $list = is_array($listOrValue) ? $listOrValue : [$listOrValue];
+        $list = is_array($listOrValue) ? $listOrValue : array($listOrValue);
 
         // Gather all primary keys
-        $ids = [];
+        $ids = array();
         foreach ($list as $item) {
             // Integer Id
             if (is_int($item) && $item > 0) {

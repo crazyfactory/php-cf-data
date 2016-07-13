@@ -18,7 +18,7 @@ abstract class SerializerBase implements ISerializer
             throw new \InvalidArgumentException();
 
         // Transform list items
-        $out = [];
+        $out = array();
         foreach ($list as $item) {
             $out[] = $this->serialize($item);
         }
@@ -39,7 +39,7 @@ abstract class SerializerBase implements ISerializer
             throw new \InvalidArgumentException();
 
         // Transform list items
-        $out = [];
+        $out = array();
         foreach ($list as $item) {
             $out[] = $this->restore($item);
         }
