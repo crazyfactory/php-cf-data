@@ -18,6 +18,19 @@ class SampleCollection extends SqlCollection {
 class SqlCollectionTest extends \PHPUnit_Framework_TestCase
 {
 
-    // todo: add test cases
+    public function testAdd() {
+        // todo: implement test case?
+    }
 
+    public function testUpdate() {
+        // todo: implement test case?
+    }
+
+    public function testRemove() {
+        // todo: implement test case?
+    }
+
+    public function testCount() {
+        // todo: implement test case?
+    }
 }

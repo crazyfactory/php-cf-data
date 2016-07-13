@@ -38,9 +38,9 @@ class ValidatingModel extends ModelBase
 
 class ModelBaseTest extends \PHPUnit_Framework_TestCase
 {
-    const VALUES_OF_DIFFERENT_TYPES = [
+    const VALUES_OF_DIFFERENT_TYPES = array(
         null, false, 0, 15, '', 'alice', 'MoreComplex_and-STRANGE+with#123'
-    ];
+    );
 
     public function testIsValidPropertyValue_WithoutValidator()
     {
@@ -199,10 +199,14 @@ class ModelBaseTest extends \PHPUnit_Framework_TestCase
         // Create new instance and check if it returns the initial values
         $obj = new SimpleModel('alice', 13);
         $data = $obj->extractData();
-        $this->assertEquals(['name' => 'alice', 'age' => 13, 'location' => null], $data);
+        $this->assertEquals(
+            array('name' => 'alice', 'age' => 13, 'location' => null),
+            $data);
 
         // Get Dirty Data and assume it's an empty erray
-        $this->assertEquals([], $obj->extractData(true),
+        $this->assertEquals(
+            array(),
+            $obj->extractData(true),
             'extract dirty data should return an empty array after instantiation.');
 
         // Change Data
@@ -210,28 +214,32 @@ class ModelBaseTest extends \PHPUnit_Framework_TestCase
 
         // Compare Data again
         $data = $obj->extractData();
-        $this->assertEquals(['name' => 'alice', 'age' => 13, 'location' => 'Wonderland'], $data,
+        $this->assertEquals(
+            array('name' => 'alice', 'age' => 13, 'location' => 'Wonderland'),
+            $data,
             'property change should have changed result.');
 
         // Compare Dirty Data again
         $dirty_data = $obj->extractData(true);
-        $this->assertEquals(['location' => 'Wonderland'], $dirty_data,
+        $this->assertEquals(
+            array('location' => 'Wonderland'),
+            $dirty_data,
             'extract dirty data should indicated priorly changed values.');
     }
 
     public function testApplyData()
     {
         // Define sample data sets which will be applied one after another to the same model.
-        $sets = [
-            [
+        $sets = array(
+            array(
                 'name' => 'Alice',
                 'location' => 'Wonderland'
-            ],
-            [/*empty*/],
-            [
+            ),
+            array(/*empty*/),
+            array(
                 'age' => 21
-            ],
-        ];
+            ),
+        );
         $obj = new SimpleModel();
 
         // Apply all sets in a sequence and check if getPropertyValue() returns the applied values correctly.
