@@ -86,17 +86,19 @@ class SqlCollection extends CollectionBase
         }
 
         // Build query (omit the primary key)
-        $sql = SqlInsertQuery::buildBulk($this->_tableName, $data_list, [$this->_tablePrimaryKey]);
+        $sql = SqlInsertQuery::buildBulk($this->_tableName, $data_list, array($this->_tablePrimaryKey));
 
         // Fire Query
         $last_insert_id = df_query($sql);
+        if ($last_insert_id) {
 
-        // Update model primary keys and mark them as clean
-        $current_id = $last_insert_id;
-        foreach ($list as $item) {
-            $item->setPropertyValue($this->_modelPrimaryKey, $current_id);
-            $item->resetDirtyState();
-            $current_id++;
+            // Update models with auto increment values
+            $current_id = ((int)$last_insert_id) - (count($listOrModel) - 1);
+            foreach ($list as $item) {
+                $item->setPropertyValue($this->_modelPrimaryKey, $current_id);
+                $item->resetDirtyState();
+                $current_id++;
+            }
         }
 
         return $last_insert_id;
