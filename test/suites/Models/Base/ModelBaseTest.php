@@ -38,9 +38,12 @@ class ValidatingModel extends ModelBase
 
 class ModelBaseTest extends \PHPUnit_Framework_TestCase
 {
-    const VALUES_OF_DIFFERENT_TYPES = array(
-        null, false, 0, 15, '', 'alice', 'MoreComplex_and-STRANGE+with#123'
-    );
+    public function getValueOfDifferentTypes()
+    {
+        return array(
+            null, false, 0, 15, '', 'alice', 'MoreComplex_and-STRANGE+with#123'
+        );
+    }
 
     public function testIsValidPropertyValue_WithoutValidator()
     {
@@ -101,7 +104,9 @@ class ModelBaseTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetAndGetPropertyValue()
     {
-        foreach (self::VALUES_OF_DIFFERENT_TYPES as $value) {
+        $values = $this->getValueOfDifferentTypes();
+
+        foreach ($values as $value) {
             $obj = new SimpleModel();
 
             // Set value and compare return value

@@ -53,7 +53,7 @@ class Collection extends CollectionBase
 		// empty, don't test!
 	}
 
-	function restoreModels($list, $asDictionary, $skipValidation)
+	function restoreModels($list, $asDictionary = false, $skipValidation = false)
 	{
 		return parent::restoreModels($list, $asDictionary, $skipValidation);
 	}
