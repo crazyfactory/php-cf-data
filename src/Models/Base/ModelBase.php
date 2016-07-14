@@ -143,7 +143,7 @@ abstract class ModelBase implements IModel
                 }
             }
             if (!empty($invalidValues)) {
-                throw new OutOfRangeException($invalidValues);
+                throw new OutOfRangeException("Invalid property values: " . implode(", ", $invalidValues));
             }
         }
 
