@@ -56,11 +56,11 @@ class SqlCollection extends CollectionBase
         }
 
         // Validate final values
-        if (SqlSchemes::isValidTableName($tableName)) {
+        if (!SqlSchemes::isValidTableName($tableName)) {
             throw new \Exception('Table name is not valid');
         }
 
-        if (SqlSchemes::isValidColumnName($tablePrimaryKey)) {
+        if (!SqlSchemes::isValidColumnName($tablePrimaryKey)) {
             throw new \Exception('Table primary key is not valid');
         }
 
