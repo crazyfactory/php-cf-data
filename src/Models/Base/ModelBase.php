@@ -8,6 +8,11 @@ use CrazyFactory\Core\Interfaces\IModel;
 
 abstract class ModelBase implements IModel
 {
+    public static function className()
+    {
+        return get_called_class();
+    }
+
     protected $_properties = array();
     protected $_dirtyProperties = array();
     protected $_isValidatedOnChange = true;

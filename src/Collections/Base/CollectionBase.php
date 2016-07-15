@@ -10,6 +10,10 @@ use CrazyFactory\Utils\Arrays;
 
 abstract class CollectionBase implements ICollection
 {
+    public static function className()
+    {
+        return get_called_class();
+    }
 
     /**
      * @param IModel[] $list
