@@ -60,7 +60,7 @@ namespace CrazyFactory\Data\Test
          */
         public function testConstruct_ThrowsExceptionWithInvalidTableName()
         {
-            $obj = new SampleCollection(Example::class, null, true);
+            $obj = new SampleCollection(Example::className(), null, true);
         }
 
         /**
@@ -68,7 +68,7 @@ namespace CrazyFactory\Data\Test
          */
         public function testConstruct_ThrowsExceptionWithInvalidTablePrimaryKey()
         {
-            $obj = new SampleCollection(Example::class, null, null, true);
+            $obj = new SampleCollection(Example::className(), null, null, true);
         }
 
         /**
@@ -76,12 +76,12 @@ namespace CrazyFactory\Data\Test
          */
         public function testConstruct_ThrowsExceptionWithInvalidModelPrimaryKey()
         {
-            new SampleCollection(Broken::class);
+            new SampleCollection(Broken::className());
         }
 
         public function testAdd_withEmptyList()
         {
-            $obj = new SampleCollection(Example::class, null, 'funky_table', 'funky_id');
+            $obj = new SampleCollection(Example::className(), null, 'funky_table', 'funky_id');
             $result = $obj->add(array());
             $this->assertNull($result, 'An empty list should return null on add');
         }
@@ -96,7 +96,7 @@ namespace CrazyFactory\Data\Test
 
             $list = array($alice, $bob);
 
-            $obj = new SampleCollection(Example::class, null, 'funky_table');
+            $obj = new SampleCollection(Example::className(), null, 'funky_table');
 
             // Add them both to the DB
             // Should return 5 as last insert id. indicating that a query function was called
@@ -120,7 +120,7 @@ namespace CrazyFactory\Data\Test
 
         public function testUpdate_withEmptyList()
         {
-            $obj = new SampleCollection(Example::class, null, 'funky_table', 'funky_id');
+            $obj = new SampleCollection(Example::className(), null, 'funky_table', 'funky_id');
             $result = $obj->update(array());
             $this->assertNull($result, 'An empty list should return null on update');
         }
@@ -139,7 +139,7 @@ namespace CrazyFactory\Data\Test
 
 
             $list = array($alice, $bob);
-            $obj = new SampleCollection(Example::class, null, 'funky_table');
+            $obj = new SampleCollection(Example::className(), null, 'funky_table');
 
             // Call method and retrieve query
             $obj->update($list);
@@ -155,7 +155,7 @@ namespace CrazyFactory\Data\Test
 
         public function testRemove_withEmptyList()
         {
-            $obj = new SampleCollection(Example::class, null, 'funky_table', 'funky_id');
+            $obj = new SampleCollection(Example::className(), null, 'funky_table', 'funky_id');
             $result = $obj->remove(array());
             $this->assertNull($result, 'An empty list should return null on remove');
         }
@@ -164,7 +164,7 @@ namespace CrazyFactory\Data\Test
          * @expectedException \InvalidArgumentException
          */
         public function testRemove_ThrowsExceptionOnInvalidListItems() {
-            $obj = new SampleCollection(Example::class, null, 'funky_table', 'funky_id');
+            $obj = new SampleCollection(Example::className(), null, 'funky_table', 'funky_id');
             $obj->remove(array(false));
         }
 
@@ -176,7 +176,7 @@ namespace CrazyFactory\Data\Test
             $alice->setPropertyValue('example_id', 4);
 
             $list = array($alice, 5, null);
-            $obj = new SampleCollection(Example::class, null, 'funky_table');
+            $obj = new SampleCollection(Example::className(), null, 'funky_table');
 
             // Call method and retrieve query
             $obj->remove($list);

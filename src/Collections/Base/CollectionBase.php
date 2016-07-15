@@ -6,6 +6,7 @@ use CrazyFactory\Core\Interfaces\IModel;
 use CrazyFactory\Core\Interfaces\ISerializer;
 
 use CrazyFactory\Core\Interfaces\ICollection;
+use CrazyFactory\Data\Models\Base\ModelBase;
 use CrazyFactory\Utils\Arrays;
 
 abstract class CollectionBase implements ICollection
@@ -41,7 +42,7 @@ abstract class CollectionBase implements ICollection
      */
     public function __construct($modelClass, ISerializer $serializer = null)
     {
-        if (!is_subclass_of($modelClass, IModel::class)) {
+        if (!in_array('CrazyFactory\Core\Interfaces\IModel', class_implements($modelClass))) {
             throw new \Exception('modelClass is missing IModel interface');
         }
 
@@ -81,7 +82,8 @@ abstract class CollectionBase implements ICollection
     protected function serializeModels($list, $dirtyOnly = false, $asDictionary = false, $removePrimaryKey = false, $skipValidation = false) {
 
         // Validate if requested
-        if (!$skipValidation && !Arrays::hasOnlyElementsOfClass($list, IModel::class, false)) {
+        //if (!$skipValidation && !Arrays::hasOnlyElementsOfClass($list, IModel::class, false)) { // todo: PHP 5.5+ use this line
+        if (!$skipValidation && !Arrays::hasOnlyElementsOfClass($list, ModelBase::className(), false)) {
             throw new \InvalidArgumentException('list contains invalid elements');
         }
 

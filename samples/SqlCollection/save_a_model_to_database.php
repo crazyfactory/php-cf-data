@@ -38,8 +38,8 @@ class User extends IdModel {
 // --- Create an SqlCollection
 // Here we're using an SqlCollection class directly
 // Alternatively we can inherit from it. If no Table Name is supplied
-use \CrazyFactory\Core\Collections\SqlCollection;
-$collection = new SqlCollection(User::class);
+use \CrazyFactory\Data\Collections\SqlCollection;
+$collection = new SqlCollection(User::className());
 
 // --- Load the model
 // Get a user model from somewhere

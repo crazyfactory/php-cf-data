@@ -18,6 +18,11 @@ use CrazyFactory\Data\Serializers\Base\SerializerBase;
  */
 class SimpleSerializer extends SerializerBase {
 
+    public static function className()
+    {
+        return get_called_class();
+    }
+
     const RESTORE_RETURN_VALUE = "HAS_BEEN_RESTORED";
     const SERIALIZE_RETURN_VALUE = "HAS_BEEN_SERIALIZED";
 
@@ -35,8 +40,9 @@ class SimpleSerializer extends SerializerBase {
 
 class SerializerBaseTest extends \PHPUnit_Framework_TestCase {
     function testInterfaceInheritance() {
-        $this->assertTrue(is_subclass_of(SerializerBase::class, ISerializer::class),
-            'is missing ISerializer interface');
+        $hasInterface = in_array('CrazyFactory\Core\Interfaces\ISerializer', class_implements(SimpleSerializer::className()));
+        $this->assertTrue($hasInterface, 'is missing ISerializer interface');
+        // todo PHP 5.5 use SerializerBase::class instanceof ISerializer
     }
 
     // Tests if serializeEach correctly returns the same result 

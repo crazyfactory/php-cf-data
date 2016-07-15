@@ -75,7 +75,7 @@ class CollectionBaseTest extends \PHPUnit_Framework_TestCase
 	public function test__construct()
 	{
 		// Test if the class is constructed/compiled correctly.
-		$obj = new Collection(Model::class);
+		$obj = new Collection(Model::className());
 	}
 
 	public function testRestoreModels()
