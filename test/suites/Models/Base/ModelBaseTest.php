@@ -12,11 +12,11 @@ class SimpleModel extends ModelBase
 {
     function __construct($name = null, $age = null, $location = null)
     {
-        $this->initProperties([
+        $this->initProperties(array(
             'name' => $name,              // Has NO set/get/isValid
             'age' => $age,
             'location' => $location
-        ]);
+        ));
     }
 }
 
@@ -24,10 +24,10 @@ class ValidatingModel extends ModelBase
 {
     function __construct()
     {
-        $this->initProperties([
+        $this->initProperties(array(
             'has_no_validator' => null,
             'must_be_bool' => null
-        ]);
+        ));
     }
 
     static function isValidMust_be_bool($value)
